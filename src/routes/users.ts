@@ -20,28 +20,20 @@ export async function usersRoute(app: FastifyInstance) {
     },
   )
 
-/*   app.get(
+  app.get(
     '/:id',
     async (request) => {
       const getUserParamsSchema = z.object({
         id: z.string().uuid(),
       })
+      
       const { id } = getUserParamsSchema.parse(request.params)
 
-      const { sessionId } = request.cookies
+      const user = await knexQB('users').where({ id }).first()
 
-      const transaction = await knexQB('users')
-        .where({
-          session_id: sessionId!, // ! = Non-null assertion
-          id,
-        })
-        // .andWhere('session_id', sessionId)
-        .first()
-      // const transaction = await knexQB('users').where({ id }).first()
-
-      return { transaction }
+      return { user }
     },
-  ) */
+  )
 
 /*   app.get(
     '/summary',
